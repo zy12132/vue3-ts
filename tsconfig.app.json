@@ -2,15 +2,32 @@
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-    "types": ["vite/client"],
-
+    "types": [
+      "vite/client"
+    ],
+    "baseUrl": ".", // 基础路径设为项目根目录（相对于此文件）
+    "paths": {
+      "@/*": [
+        "src/*"
+      ] // 简洁写法，去掉多余数组嵌套（不影响但更规范）
+    },
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    "composite": true // 补充 composite: true（Vite 项目推荐，支持增量编译）
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "env.d.ts" // 确保包含环境变量类型声明文件（如有）
+  ],
+  "exclude": [
+    "src/**/__tests__/*", // 排除测试文件（可选，优化编译）
+    "node_modules"
+  ]
 }
